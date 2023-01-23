@@ -1,0 +1,21 @@
+{
+  "name": "@vctrtvfrrr/luna-records",
+  "version": "1.0.0",
+  "description": "Loja de Discos",
+  "scripts": {
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vctrtvfrrr/luna-records.git"
+  },
+  "author": "Victor Ferreira <victor@otavioferreira.com.br>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vctrtvfrrr/luna-records/issues"
+  },
+  "homepage": "https://github.com/vctrtvfrrr/luna-records#readme",
+  "devDependencies": {
+    "husky": "^8.0.3"
+  }
+}
