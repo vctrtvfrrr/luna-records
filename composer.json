@@ -1,0 +1,18 @@
+{
+    "name": "victor/luna-records",
+    "description": "Loja de Discos",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Victor\\LunaRecords\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Victor Ferreira",
+            "email": "victor@otavioferreira.com.br"
+        }
+    ],
+    "require": {}
+}
