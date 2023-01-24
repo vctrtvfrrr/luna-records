@@ -1,0 +1,89 @@
+version: "3"
+
+services:
+  ### NGINX Service #######################################
+  nginx:
+    build:
+      context: ./nginx
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 64M
+        reservations:
+          cpus: "0.25"
+          memory: 48M
+    healthcheck:
+      test: "curl -f http://localhost/ping || exit 1"
+      start_period: 5s
+      retries: 2
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx:/app:cached
+    restart: unless-stopped
+    networks:
+      - appnet
+
+  ### API Service #########################################
+  api:
+    build:
+      context: ./api
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 456M
+        reservations:
+          cpus: "0.25"
+          memory: 384M
+    expose:
+      - "3000"
+    healthcheck:
+      test: "php ./healthcheck.php"
+      start_period: 5s
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./api:/app:cached
+    depends_on:
+      - mariadb
+    restart: unless-stopped
+    networks:
+      - appnet
+
+  ### MariaDB Service #####################################
+  mariadb:
+    image: mariadb:10.6
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 1536M
+        reservations:
+          cpus: "0.25"
+          memory: 1224M
+    volumes:
+      - mariadb:/var/lib/mysql
+      - ./mariadb/conf.d:/etc/mysql/conf.d
+      - ./mariadb/initdb.d:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: mysqladmin -psecret ping -h localhost
+      start_period: 5s
+    environment:
+      - MARIADB_USER=lunarecords
+      - MARIADB_PASSWORD=secret
+      - MYSQL_ROOT_PASSWORD=secret
+    restart: unless-stopped
+    networks:
+      - appnet
+
+networks:
+  appnet:
+
+volumes:
+  mariadb:
+  redis:
