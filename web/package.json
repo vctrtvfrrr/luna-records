@@ -4,7 +4,11 @@
   "description": "Loja de Discos",
   "private": true,
   "scripts": {
-    "prepare": "husky install"
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
   },
   "repository": {
     "type": "git",
@@ -16,8 +20,10 @@
     "url": "https://github.com/vctrtvfrrr/luna-records/issues"
   },
   "homepage": "https://github.com/vctrtvfrrr/luna-records#readme",
-  "dependencies": {},
+  "dependencies": {
+    "dotenv": "^16.0.3"
+  },
   "devDependencies": {
-    "husky": "^8.0.3"
+    "nuxt": "^3.1.0"
   }
 }

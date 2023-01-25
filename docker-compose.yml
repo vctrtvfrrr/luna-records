@@ -53,6 +53,31 @@ services:
     networks:
       - appnet
 
+  ### Web Service #########################################
+  web:
+    build:
+      context: ./web
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 2048M
+        reservations:
+          cpus: "0.25"
+          memory: 1536M
+    environment:
+      - NODE_OPTIONS=--max-old-space-size=2048
+    expose:
+      - "8000"
+      - "24678" # Para o HMR
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./web:/app:cached
+    restart: unless-stopped
+    networks:
+      - appnet
+
   ### MariaDB Service #####################################
   mariadb:
     image: mariadb:10.6
