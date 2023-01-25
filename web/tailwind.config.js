@@ -9,7 +9,13 @@ module.exports = {
     "./app.vue",
   ],
   theme: {
+    container: {
+      center: true,
+    },
     extend: {},
   },
-  plugins: [],
-}
+  corePlugins: {
+    aspectRatio: false,
+  },
+  plugins: [require("@tailwindcss/aspect-ratio")],
+};
