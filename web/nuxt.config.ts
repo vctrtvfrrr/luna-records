@@ -1,17 +1,20 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-    ssr: true,
-    devServer: {
-        host: "0.0.0.0",
-        port: 8000,
+  devServer: {
+    host: process.env.HOST,
+    port: Number(process.env.PORT),
+  },
+  typescript: {
+    strict: true,
+  },
+  // TODO: Nmbiente de desenvolvimento, as chamadas HMR precisam passar pelo proxy reverso do NGINX.
+  vite: {
+    server: {
+      hmr: {
+        protocol: "wss",
+        clientPort: 443,
+        path: "hmr/",
+      },
     },
-    vite: {
-        server: {
-            hmr: {
-                protocol: 'wss',
-                clientPort: 443,
-                path: "hmr/",
-            },
-        },
-    },
+  },
 });

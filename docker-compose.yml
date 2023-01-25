@@ -70,6 +70,9 @@ services:
     expose:
       - "8000"
       - "24678" # Para o HMR
+    healthcheck:
+      test: "node ./healthcheck.js"
+      start_period: 30s
     ports:
       - "8000:8000"
     volumes:
