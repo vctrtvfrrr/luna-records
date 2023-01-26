@@ -4,5 +4,4 @@ export default interface Product {
   album: string;
   imageSrc: string;
   price: string;
-  href: string;
 }

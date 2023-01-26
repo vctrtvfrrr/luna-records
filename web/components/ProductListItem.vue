@@ -12,8 +12,11 @@
 
     <div class="mt-4 flex justify-between">
       <div class="flex-1 overflow-hidden">
-        <h3 class="text-sm font-bold text-gray-700 whitespace-nowrap truncate">
-          <a :href="product.href" :title="product.album">{{ product.album }}</a>
+        <h3
+          class="text-sm font-bold text-gray-700 whitespace-nowrap truncate"
+          :title="product.album"
+        >
+          {{ product.album }}
         </h3>
         <p class="mt-1 text-sm text-gray-500">{{ product.artist }}</p>
       </div>
@@ -24,11 +27,12 @@
       </p>
     </div>
 
-    <button
-      class="w-full mt-4 bg-red-700 hover:bg-red-800 text-white font-bold py-2 px-4 rounded"
+    <NuxtLink
+      :to="`products/${product.id}`"
+      class="block w-full mt-4 py-2 px-4 rounded bg-red-700 hover:bg-red-800 text-center text-white font-bold"
     >
       Comprar
-    </button>
+    </NuxtLink>
   </div>
 </template>
 

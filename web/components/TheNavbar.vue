@@ -23,16 +23,16 @@
           </DisclosureButton>
         </div>
 
-        <div
-          class="flex flex-1 items-center justify-center sm:justify-start"
-        >
+        <div class="flex flex-1 items-center justify-center sm:justify-start">
           <div class="flex flex-shrink-0 items-center">
-            <img
-              class="block h-16 w-auto -scale-y-100"
-              src="~/assets/logo.svg"
-              alt="Luna Records"
-              title="Luna Records"
-            />
+            <NuxtLink to="/">
+              <img
+                class="block h-16 w-auto -scale-y-100"
+                src="~/assets/logo.svg"
+                alt="Luna Records"
+                title="Luna Records"
+              />
+            </NuxtLink>
           </div>
           <div class="hidden sm:ml-6 sm:block">
             <div class="flex space-x-4">
