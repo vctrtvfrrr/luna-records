@@ -7,10 +7,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Veelasky\LaravelHashId\Eloquent\HashableId;
 
 class Tag extends Model
 {
     use HasFactory;
+    use HashableId;
 
     /**
      * The attributes that are mass assignable.

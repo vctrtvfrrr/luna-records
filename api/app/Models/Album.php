@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Veelasky\LaravelHashId\Eloquent\HashableId;
 
 class Album extends Model
 {
     use HasFactory;
+    use HashableId;
 
     /**
      * The attributes that are mass assignable.
