@@ -15,6 +15,8 @@ class Album extends Model
     use HasFactory;
     use HashableId;
 
+    public const COVER_PATH = 'album-covers';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -23,7 +25,6 @@ class Album extends Model
     protected $fillable = [
         'name',
         'artist',
-        'cover',
         'released_at',
         'duration',
         'stock',

@@ -24,10 +24,12 @@ namespace App\Models{
  * @property int $price
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read string|null $hash
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Tag[] $tags
  * @property-read int|null $tags_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Track[] $tracks
  * @property-read int|null $tracks_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Album byHash(string $hash)
  * @method static \Database\Factories\AlbumFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Album newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Album newQuery()
@@ -56,6 +58,8 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Album[] $albums
  * @property-read int|null $albums_count
+ * @property-read string|null $hash
+ * @method static \Illuminate\Database\Eloquent\Builder|Tag byHash(string $hash)
  * @method static \Database\Factories\TagFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Tag newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Tag newQuery()
@@ -80,6 +84,8 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Album $album
+ * @property-read string|null $hash
+ * @method static \Illuminate\Database\Eloquent\Builder|Track byHash(string $hash)
  * @method static \Database\Factories\TrackFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Track newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Track newQuery()
