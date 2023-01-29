@@ -37,7 +37,7 @@ class Album extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'released_at' => 'datetime',
+        'released_at' => 'date:Y-m-d',
         'duration'    => 'integer',
         'stock'       => 'integer',
         'price'       => 'integer',

@@ -22,7 +22,7 @@ class AlbumResource extends JsonResource
             'name'        => $this->name,
             'artist'      => $this->artist,
             'cover'       => $this->when($this->cover, Storage::disk('public')->url($this->cover)),
-            'released_at' => $this->when($this->released_at, $this->released_at->toIso8601String()),
+            'released_at' => $this->when($this->released_at, $this->released_at->format('Y-m-d')),
             'duration'    => $this->duration,
             'stock'       => $this->stock,
             'price'       => $this->price,

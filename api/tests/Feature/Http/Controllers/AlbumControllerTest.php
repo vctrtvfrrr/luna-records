@@ -84,7 +84,7 @@ class AlbumControllerTest extends TestCase
         $album = Album::factory()->create();
 
         $payload = [
-            'released_at' => $this->faker->dateTimeInInterval('-50 years', 'now')->format(\DateTime::ATOM),
+            'released_at' => $this->faker->dateTimeInInterval('-50 years', 'now')->format('Y-m-d'),
             'cover'       => UploadedFile::fake()->image('cover.jpg'),
         ];
 

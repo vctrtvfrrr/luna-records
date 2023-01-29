@@ -18,7 +18,6 @@ return new class() extends Migration {
             $table->id();
             $table->foreignIdFor(Album::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Tag::class)->constrained()->cascadeOnDelete();
-            $table->timestamps();
         });
     }
 
