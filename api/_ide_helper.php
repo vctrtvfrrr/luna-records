@@ -18038,6 +18038,144 @@
      
 }
 
+    namespace Veelasky\LaravelHashId { 
+            /**
+     * 
+     *
+     */ 
+        class Facade {
+                    /**
+         * Get all of the HashId items.
+         *
+         * @return array|\Hashids\Hashids[] 
+         * @static 
+         */ 
+        public static function all()
+        {
+                        /** @var \Veelasky\LaravelHashId\Repository $instance */
+                        return $instance->all();
+        }
+                    /**
+         * Convert hash to id.
+         *
+         * @param string $hash
+         * @param string|null $key
+         * @return int|null 
+         * @static 
+         */ 
+        public static function hashToId($hash, $key = 'default')
+        {
+                        /** @var \Veelasky\LaravelHashId\Repository $instance */
+                        return $instance->hashToId($hash, $key);
+        }
+                    /**
+         * Convert id to Hash.
+         *
+         * @param int $idKey
+         * @param string|null $key
+         * @return string 
+         * @static 
+         */ 
+        public static function idToHash($idKey, $key = 'default')
+        {
+                        /** @var \Veelasky\LaravelHashId\Repository $instance */
+                        return $instance->idToHash($idKey, $key);
+        }
+                    /**
+         * Create new HashId Instance.
+         *
+         * @param string $key
+         * @param string $salt
+         * @return \Hashids\Hashids; 
+         * @static 
+         */ 
+        public static function make($key, $salt)
+        {
+                        /** @var \Veelasky\LaravelHashId\Repository $instance */
+                        return $instance->make($key, $salt);
+        }
+                    /**
+         * Set a given HashId object.
+         *
+         * @param string $key
+         * @param \Hashids\Hashids $value
+         * @return \Veelasky\LaravelHashId\Contracts\Repository 
+         * @static 
+         */ 
+        public static function set($key, $value)
+        {
+                        /** @var \Veelasky\LaravelHashId\Repository $instance */
+                        return $instance->set($key, $value);
+        }
+                    /**
+         * Get the specified HashId object.
+         *
+         * @param string $key
+         * @return \Hashids\Hashids 
+         * @static 
+         */ 
+        public static function get($key)
+        {
+                        /** @var \Veelasky\LaravelHashId\Repository $instance */
+                        return $instance->get($key);
+        }
+                    /**
+         * Determine if the given HashId value exists.
+         *
+         * @param string $key
+         * @return bool 
+         * @static 
+         */ 
+        public static function has($key)
+        {
+                        /** @var \Veelasky\LaravelHashId\Repository $instance */
+                        return $instance->has($key);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function offsetExists($offset)
+        {
+                        /** @var \Veelasky\LaravelHashId\Repository $instance */
+                        return $instance->offsetExists($offset);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function offsetGet($offset)
+        {
+                        /** @var \Veelasky\LaravelHashId\Repository $instance */
+                        return $instance->offsetGet($offset);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function offsetSet($offset, $value)
+        {
+                        /** @var \Veelasky\LaravelHashId\Repository $instance */
+                        return $instance->offsetSet($offset, $value);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function offsetUnset($offset)
+        {
+                        /** @var \Veelasky\LaravelHashId\Repository $instance */
+                        return $instance->offsetUnset($offset);
+        }
+         
+    }
+     
+}
+
     namespace Illuminate\Http { 
             /**
      * 
@@ -21904,6 +22042,7 @@ namespace  {
             class View extends \Illuminate\Support\Facades\View {}
             class Vite extends \Illuminate\Support\Facades\Vite {}
             class Flare extends \Spatie\LaravelIgnition\Facades\Flare {}
+            class HashId extends \Veelasky\LaravelHashId\Facade {}
      
 }
 
