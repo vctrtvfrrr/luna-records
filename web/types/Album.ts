@@ -1,7 +1,7 @@
-export default interface Product {
+export default interface Album {
   id: string | undefined;
   artist: string;
   album: string;
-  imageSrc: string;
+  cover: string;
   price: string;
 }
