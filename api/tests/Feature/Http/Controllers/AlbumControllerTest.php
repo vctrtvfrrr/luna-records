@@ -33,7 +33,7 @@ class AlbumControllerTest extends TestCase
         $count = $this->faker->numberBetween(1, 5);
         Album::factory()->count($count)->create();
 
-        $response = $this->getJson(route('albums.index'));
+        $response = $this->getJson(route('admin.albums.index'));
         $response
             ->assertSuccessful()
             ->assertJsonCount($count, 'data')
@@ -46,7 +46,7 @@ class AlbumControllerTest extends TestCase
         $payload = Album::factory()->make()->toArray();
         $payload['cover'] = UploadedFile::fake()->image('cover.jpg');
 
-        $response = $this->postJson(route('albums.store'), $payload);
+        $response = $this->postJson(route('admin.albums.store'), $payload);
         $response
             ->assertCreated()
             ->assertJson(
@@ -65,7 +65,7 @@ class AlbumControllerTest extends TestCase
     {
         $album = Album::factory()->create();
 
-        $response = $this->getJson(route('albums.show', $album->hash));
+        $response = $this->getJson(route('admin.albums.show', $album->hash));
         $response
             ->assertOk()
             ->assertJson(
@@ -88,7 +88,7 @@ class AlbumControllerTest extends TestCase
             'cover'       => UploadedFile::fake()->image('cover.jpg'),
         ];
 
-        $response = $this->patchJson(route('albums.update', $album->hash), $payload);
+        $response = $this->patchJson(route('admin.albums.update', $album->hash), $payload);
         $response
             ->assertOk()
             ->assertJson(
@@ -108,7 +108,7 @@ class AlbumControllerTest extends TestCase
         $filename = Storage::disk('public')->putFile(Album::COVER_PATH, $file);
         $album = Album::factory()->state(['cover' => $filename])->create();
 
-        $response = $this->deleteJson(route('albums.destroy', $album->hash));
+        $response = $this->deleteJson(route('admin.albums.destroy', $album->hash));
         $response->assertNoContent();
 
         $this->assertModelMissing($album);

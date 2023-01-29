@@ -32,6 +32,7 @@ class Track extends Model
      * @var array<string, string>
      */
     protected $casts = [
+        'number'   => 'string',
         'duration' => 'integer',
     ];
 

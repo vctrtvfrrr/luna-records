@@ -78,7 +78,7 @@ namespace App\Models{
  *
  * @property int $id
  * @property int $album_id
- * @property int $number
+ * @property string $number
  * @property string $title
  * @property int $duration
  * @property \Illuminate\Support\Carbon|null $created_at
