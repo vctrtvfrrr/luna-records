@@ -50,6 +50,70 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * App\Models\Customer
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $email
+ * @property string $phone
+ * @property string $address
+ * @property string $card_last_digits
+ * @property string $card_expires_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read string|null $hash
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order[] $orders
+ * @property-read int|null $orders_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Customer byHash(string $hash)
+ * @method static \Illuminate\Database\Eloquent\Builder|Customer newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Customer newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Customer query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Customer whereAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Customer whereCardExpiresAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Customer whereCardLastDigits($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Customer whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Customer whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Customer whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Customer whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Customer wherePhone($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Customer whereUpdatedAt($value)
+ */
+	class Customer extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\Order
+ *
+ * @property int $id
+ * @property int $customer_id
+ * @property int $album_id
+ * @property int $quantity
+ * @property int $delivery_fee
+ * @property int $total_cost
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Album $album
+ * @property-read \App\Models\Customer $customer
+ * @property-read string|null $hash
+ * @method static \Illuminate\Database\Eloquent\Builder|Order byHash(string $hash)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Order newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Order query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereAlbumId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereCustomerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereDeliveryFee($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereQuantity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereTotalCost($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereUpdatedAt($value)
+ */
+	class Order extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Tag
  *
  * @property int $id
