@@ -35,6 +35,24 @@ class AlbumModule extends HttpFactory {
     );
   }
 
+  async update(
+    id: string,
+    payload: IAlbumStoreRequest
+  ): Promise<IAlbumStoreResponse> {
+    if (!(payload.cover instanceof File)) delete payload.cover;
+    const formData = serialize(payload);
+
+    // Required for file upload to work with the PATCH method.
+    // https://stackoverflow.com/q/50691938/2095774
+    formData.append("_method", "patch");
+
+    return await this.call<IAlbumStoreResponse>(
+      "POST",
+      `/admin/${this.RESOURCE}/${id}`,
+      formData
+    );
+  }
+
   async destroy(id: string): Promise<string> {
     return await this.call<string>("DELETE", `/admin/${this.RESOURCE}/${id}`);
   }

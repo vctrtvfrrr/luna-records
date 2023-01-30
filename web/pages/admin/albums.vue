@@ -1,13 +1,27 @@
 <script lang="ts" setup>
-import { reset } from "@formkit/core";
+import { getNode, reset } from "@formkit/core";
+import { IAlbum } from "types";
 const { $api } = useNuxtApp();
 
 definePageMeta({
   layout: "admin",
 });
 
+const albumsIndex = ref<HTMLElement | null>(null);
+const albumsForm = ref<HTMLElement | null>(null);
+
+const formMode = ref("store");
+
 const { data } = await $api.admin.album.index();
-const albums = reactive(data);
+const albums: IAlbum[] = reactive(data);
+
+function submitAlbumForm(fields: Record<string, any>) {
+  if (formMode.value === "store") {
+    return createAlbum(fields);
+  } else {
+    return updateAlbum(fields);
+  }
+}
 
 async function createAlbum(fields: Record<string, any>) {
   const payload = {
@@ -24,6 +38,60 @@ async function createAlbum(fields: Record<string, any>) {
     const { data: response } = await $api.admin.album.store(payload);
     albums.push(response);
     reset("albumForm");
+    albumsIndex.value?.scrollIntoView({ behavior: "smooth" });
+  } catch (error) {
+    // TODO: Tratar os erros da API
+    console.error(error);
+  }
+}
+
+function openForEditing(id?: string) {
+  if (typeof id === "undefined") return;
+
+  const index = albums.findIndex((i) => i.id === id);
+  if (index < 0) return;
+
+  const album: IAlbum = albums[index];
+
+  getNode("id")?.input(album.id);
+  getNode("name")?.input(album.name);
+  getNode("artist")?.input(album.artist);
+  getNode("released_at")?.input(album.released_at);
+  getNode("price")?.input(album.price ? album.price / 100 : 0);
+  getNode("stock")?.input(album.stock);
+
+  formMode.value = "update";
+  albumsForm.value?.scrollIntoView({ behavior: "smooth" });
+}
+
+async function updateAlbum(fields: Record<string, any>) {
+  const payload = {
+    id: fields.id,
+    name: fields.name,
+    artist: fields.artist,
+    released_at: fields.released_at,
+    price: Number(fields.price) * 100,
+    stock: Number(fields.stock),
+    cover: undefined,
+  };
+  fields.cover.forEach((fileItem: any) => (payload.cover = fileItem.file));
+
+  try {
+    const { data: response } = await $api.admin.album.update(
+      fields.id,
+      payload
+    );
+
+    const index = albums.findIndex((i) => i.id === fields.id);
+    if (index >= 0) {
+      albums[index] = response;
+    } else {
+      albums.push(response);
+    }
+
+    reset("albumForm");
+    formMode.value = "store";
+    albumsIndex.value?.scrollIntoView({ behavior: "smooth" });
   } catch (error) {
     // TODO: Tratar os erros da API
     console.error(error);
@@ -49,7 +117,7 @@ async function removeAlbum(id?: string) {
 </script>
 
 <template>
-  <div class="shadow-lg bg-white rounded-lg">
+  <div ref="albumsIndex" class="shadow-lg bg-white rounded-lg">
     <div class="bg-gray-100 px-6 py-2 border-b border-gray-200 rounded-t-lg">
       <h2 class="text-lg font-bold uppercase tracking-tight text-gray-900">
         Álbuns
@@ -84,7 +152,15 @@ async function removeAlbum(id?: string) {
             <td>
               <button
                 type="button"
-                class="flex bg-red-500 hover:bg-red-700 text-white p-1 rounded"
+                class="inline-flex bg-blue-500 hover:bg-blue-700 text-white mr-1 p-1 rounded"
+                title="Remover álbum"
+                @click="openForEditing(album.id)"
+              >
+                <Icon name="ic:baseline-edit" />
+              </button>
+              <button
+                type="button"
+                class="inline-flex bg-red-500 hover:bg-red-700 text-white mr-1 p-1 rounded"
                 title="Remover álbum"
                 @click="removeAlbum(album.id)"
               >
@@ -97,10 +173,10 @@ async function removeAlbum(id?: string) {
     </div>
   </div>
 
-  <div class="shadow-lg bg-white rounded-lg mt-12">
+  <div ref="albumsForm" class="shadow-lg bg-white rounded-lg mt-12">
     <div class="bg-gray-100 px-6 py-2 border-b border-gray-200 rounded-t-lg">
       <h2 class="text-lg font-bold uppercase tracking-tight text-gray-900">
-        Cadastrar álbum
+        {{ formMode === "store" ? "Cadastrar álbum" : "Editar álbum" }}
       </h2>
     </div>
 
@@ -108,9 +184,10 @@ async function removeAlbum(id?: string) {
       <FormKit
         type="form"
         id="albumForm"
-        @submit="createAlbum"
-        submit-label="Criar álbum"
+        @submit="submitAlbumForm"
+        :submit-label="formMode === 'store' ? 'Criar álbum' : 'Editar álbum'"
       >
+        <FormKit type="hidden" name="id" id="id" />
         <FormKit
           type="text"
           name="name"
