@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 const { $api } = useNuxtApp();
-const { data: albums } = await $api.album.index();
+const { data: albums } = await $api.v1.album.index();
 </script>
 
 <template>

@@ -6,7 +6,7 @@ dayjs.locale("pt-br");
 const { $api } = useNuxtApp();
 const route = useRoute();
 
-const { data: album } = await $api.album.show(String(route.params.id));
+const { data: album } = await $api.v1.album.show(String(route.params.id));
 
 const price = computed(() =>
   formatMoney(album.price && album.price > 0 ? album.price / 100 : 0)
@@ -33,13 +33,14 @@ const duration = computed(() => formatDuration(album.duration || 0));
       <div>
         <div class="bg-white box-border shadow p-2">
           <img
+            v-if="typeof album.cover === 'string'"
             :src="album.cover"
             :alt="`${album.artist} - ${album.name}`"
             class="block"
           />
         </div>
 
-        <div v-if="album.tags" class="mt-6">
+        <div v-if="album.tags && album.tags.length" class="mt-6">
           <span
             v-for="(tag, index) in album.tags"
             :key="index"
@@ -54,7 +55,7 @@ const duration = computed(() => formatDuration(album.duration || 0));
           <dt class="font-bold">Estoque</dt>
           <dd>{{ album.stock ? album.stock : "Fora de estoque" }}</dd>
 
-          <template v-if="album.tracks">
+          <template v-if="album.tracks && album.tracks.length">
             <dt class="font-bold">Duração</dt>
             <dd>{{ album.tracks.length }} faixas, {{ duration }}</dd>
           </template>
@@ -63,7 +64,7 @@ const duration = computed(() => formatDuration(album.duration || 0));
           <dd>{{ releasedAt }}</dd>
         </dl>
 
-        <div v-if="album.tracks" class="mt-8">
+        <div v-if="album.tracks && album.tracks.length" class="mt-8">
           <h3 class="font-bold text-lg">Lista de faixas</h3>
 
           <table class="w-full text-sm">

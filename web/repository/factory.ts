@@ -13,7 +13,11 @@ class HttpFactory {
     data?: object,
     extras = {}
   ): Promise<T> {
-    const $res: T = await this.$fetch(url, { method, body: data, ...extras });
+    const $res: T = await this.$fetch(url, {
+      method,
+      body: data,
+      ...Object.assign({ headers: { Accept: "application/json" } }, extras),
+    });
     return $res;
   }
 }

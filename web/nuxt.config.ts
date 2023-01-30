@@ -5,7 +5,7 @@ export default defineNuxtConfig({
     host: process.env.HOST,
     port: Number(process.env.PORT),
   },
-  modules: ["nuxt-icon"],
+  modules: ["nuxt-icon", "@formkit/nuxt"],
   postcss: {
     plugins: {
       tailwindcss: {},

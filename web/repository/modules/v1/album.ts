@@ -5,13 +5,13 @@ class AlbumModule extends HttpFactory {
   private RESOURCE = "albums";
 
   async index(): Promise<IAlbumIndexResponse> {
-    return await this.call<IAlbumIndexResponse>("GET", `/${this.RESOURCE}`);
+    return await this.call<IAlbumIndexResponse>("GET", `/v1/${this.RESOURCE}`);
   }
 
   async show(id: string): Promise<IAlbumShowResponse> {
     return await this.call<IAlbumShowResponse>(
       "GET",
-      `/${this.RESOURCE}/${id}`
+      `/v1/${this.RESOURCE}/${id}`
     );
   }
 }
