@@ -25,6 +25,24 @@ async function createAlbum(fields: Record<string, any>) {
     albums.push(response);
     reset("albumForm");
   } catch (error) {
+    // TODO: Tratar os erros da API
+    console.error(error);
+  }
+}
+
+async function removeAlbum(id?: string) {
+  if (
+    typeof id === "undefined" ||
+    !confirm("Tem certeza que deseja remover este álbum?")
+  )
+    return;
+
+  try {
+    await $api.admin.album.destroy(id);
+    const index = albums.findIndex((i) => i.id === id);
+    if (index >= 0) albums.splice(index, 1);
+  } catch (error) {
+    // TODO: Tratar os erros da API
     console.error(error);
   }
 }
@@ -48,6 +66,7 @@ async function createAlbum(fields: Record<string, any>) {
             <th class="px-6 py-3 text-left">Artista</th>
             <th class="px-6 py-3 text-right">Preço</th>
             <th class="px-6 py-3 text-center">Estoque</th>
+            <th>&nbsp;</th>
           </tr>
         </thead>
         <tbody>
@@ -62,6 +81,16 @@ async function createAlbum(fields: Record<string, any>) {
               {{ formatMoney(album.price ? album.price / 100 : 0) }}
             </td>
             <td class="px-6 py-4 text-center">{{ album.stock }}</td>
+            <td>
+              <button
+                type="button"
+                class="flex bg-red-500 hover:bg-red-700 text-white p-1 rounded"
+                title="Remover álbum"
+                @click="removeAlbum(album.id)"
+              >
+                <Icon name="ic:baseline-delete-forever" />
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>

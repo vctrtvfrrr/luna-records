@@ -34,6 +34,10 @@ class AlbumModule extends HttpFactory {
       `/admin/${this.RESOURCE}/${id}`
     );
   }
+
+  async destroy(id: string): Promise<string> {
+    return await this.call<string>("DELETE", `/admin/${this.RESOURCE}/${id}`);
+  }
 }
 
 export default AlbumModule;
