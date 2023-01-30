@@ -12,6 +12,12 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+  runtimeConfig: {
+    public: {
+      API_URL: process.env.API_URL,
+      API_BROWSER_URL: process.env.API_BROWSER_URL,
+    },
+  },
   typescript: {
     strict: true,
   },

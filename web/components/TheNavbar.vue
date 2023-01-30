@@ -10,14 +10,14 @@
             <span class="sr-only">Abrir menu principal</span>
             <Icon
               v-if="!open"
+              name="ic:baseline-menu"
               class="block h-6 w-6"
-              icon="ic:baseline-menu"
               aria-hidden="true"
             />
             <Icon
               v-else
+              name="ic:baseline-close"
               class="block h-6 w-6"
-              icon="ic:baseline-close"
               aria-hidden="true"
             />
           </DisclosureButton>
@@ -36,18 +36,21 @@
           </div>
           <div class="hidden sm:ml-6 sm:block">
             <div class="flex space-x-4">
-              <a
+              <NuxtLink
                 v-for="item in navigation"
                 :key="item.name"
-                :href="item.href"
+                :to="item.href"
                 :class="[
-                  item.current
+                  route.path === item.href
                     ? 'bg-red-800 text-white'
                     : 'text-red-700 hover:bg-red-700 hover:text-white',
                   'px-3 rounded py-2 text-sm font-medium',
                 ]"
-                :aria-current="item.current ? 'page' : undefined"
-                >{{ item.name }}</a
+                :aria-current="route.path === item.href ? 'page' : undefined"
+                ><span v-if="item.icon" class="inline-block"
+                  ><Icon :name="item.icon" size="1.2rem"
+                /></span>
+                {{ item.name }}</NuxtLink
               >
             </div>
           </div>
@@ -60,30 +63,36 @@
         <DisclosureButton
           v-for="item in navigation"
           :key="item.name"
-          as="a"
-          :href="item.href"
+          as="NuxtLink"
+          :to="item.href"
           :class="[
-            item.current
+            route.path === item.href
               ? 'bg-red-800 text-white'
               : 'text-red-700 hover:bg-red-700 hover:text-white',
             'block px-3 py-2 rounded-md text-base font-medium',
           ]"
-          :aria-current="item.current ? 'page' : undefined"
-          >{{ item.name }}</DisclosureButton
+          :aria-current="route.path === item.href ? 'page' : undefined"
+          ><span v-if="item.icon" class="inline-block"
+            ><Icon :name="item.icon" size="1.2rem"
+          /></span>
+          {{ item.name }}</DisclosureButton
         >
       </div>
     </DisclosurePanel>
   </Disclosure>
 </template>
 
-<script setup>
-import { Icon } from "@iconify/vue";
+<script lang="ts" setup>
+import { type PropType } from "vue";
+import { INavigation } from "types";
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
 
-const navigation = [
-  { name: "Lançamentos", href: "#", current: true },
-  { name: "Mais vendidos", href: "#", current: false },
-  { name: "Oldies", href: "#", current: false },
-  { name: "Fundo do baú", href: "#", current: false },
-];
+const route = useRoute();
+
+const props = defineProps({
+  navigation: {
+    type: Array as PropType<INavigation[]>,
+    required: true,
+  },
+});
 </script>

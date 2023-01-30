@@ -1,3 +1,15 @@
+<script lang="ts" setup>
+import { type PropType } from "vue";
+import { IAlbum } from "types";
+
+const props = defineProps({
+  album: {
+    type: Object as PropType<IAlbum>,
+    required: true,
+  },
+});
+</script>
+
 <template>
   <div class="group relative">
     <div
@@ -5,7 +17,7 @@
     >
       <img
         :src="album.cover"
-        :alt="`${album.artist} - ${album.album}`"
+        :alt="`${album.artist} - ${album.name}`"
         class="h-full w-full object-cover object-center lg:h-full lg:w-full"
       />
     </div>
@@ -14,36 +26,24 @@
       <div class="flex-1 overflow-hidden">
         <h3
           class="text-sm font-bold text-gray-700 whitespace-nowrap truncate"
-          :title="album.album"
+          :title="album.name"
         >
-          {{ album.album }}
+          {{ album.name }}
         </h3>
         <p class="mt-1 text-sm text-gray-500">{{ album.artist }}</p>
       </div>
       <p
         class="ml-2 text-xl font-bold tracking-tighter text-gray-900 whitespace-nowrap"
       >
-        {{ album.price }}
+        {{ album.price ? formatMoney(album.price / 100) : "Grátis" }}
       </p>
     </div>
 
     <NuxtLink
-      :to="`albums/${album.id}`"
+      :to="`/albums/${album.id}`"
       class="block w-full mt-4 py-2 px-4 rounded bg-red-700 hover:bg-red-800 text-center text-white font-bold"
     >
       Comprar
     </NuxtLink>
   </div>
 </template>
-
-<script lang="ts" setup>
-import { type PropType } from "vue";
-import Album from "~/types/Album";
-
-const props = defineProps({
-  album: {
-    type: Object as PropType<Album>,
-    required: true,
-  },
-});
-</script>
