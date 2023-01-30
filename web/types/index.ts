@@ -1,8 +1,8 @@
 export interface IAlbum {
-  id: string;
+  id?: string;
   name: string;
   artist: string;
-  cover: string;
+  cover?: File | string;
   released_at?: string;
   duration?: number;
   stock?: number;
@@ -11,6 +11,12 @@ export interface IAlbum {
 
 export interface IAlbumIndexResponse {
   data: IAlbum[];
+}
+
+export interface IAlbumStoreRequest extends IAlbum {}
+
+export interface IAlbumStoreResponse {
+  data: IAlbum;
 }
 
 export interface IAlbumShowResponse {

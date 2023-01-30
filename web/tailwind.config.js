@@ -18,7 +18,7 @@ module.exports = {
     aspectRatio: false,
   },
   plugins: [
+    require("@formkit/themes/tailwindcss"),
     require("@tailwindcss/aspect-ratio"),
-    require("@tailwindcss/forms"),
   ],
 };
