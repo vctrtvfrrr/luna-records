@@ -12,8 +12,6 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    volumes:
-      - ./nginx:/app:cached
     restart: unless-stopped
     networks:
       - appnet
@@ -22,7 +20,7 @@ services:
   api:
     build:
       context: ./api
-      target: ${SERVER_ENV:-development}
+      target: ${SERVER_ENV:-production}
     expose:
       - "3000"
     healthcheck:
@@ -30,8 +28,6 @@ services:
       start_period: 5s
     ports:
       - "3000:3000"
-    volumes:
-      - ./api:/app:cached
     depends_on:
       - mariadb
     restart: unless-stopped
@@ -42,17 +38,14 @@ services:
   web:
     build:
       context: ./web
-      target: ${SERVER_ENV:-development}
+      target: ${SERVER_ENV:-production}
     expose:
       - "8000"
-      - "24678" # Para o HMR
     healthcheck:
       test: "node ./healthcheck.js"
       start_period: 30s
     ports:
       - "8000:8000"
-    volumes:
-      - ./web:/app:cached
     restart: unless-stopped
     networks:
       - appnet

@@ -1,0 +1,13 @@
+.env
+bootstrap/cache/*
+storage/app/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+storage/logs/*
+vendor/*
+**.git
+**.gitignore
+**.gitattributes
+Dockerfile
+package*.json
