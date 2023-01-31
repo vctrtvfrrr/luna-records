@@ -33,5 +33,7 @@ RUN composer --no-ansi --no-interaction install --no-dev --no-progress --no-scri
 COPY --chown=www:www . .
 RUN cp .env.example .env \
     && php artisan key:generate \
-    && sed -i "s/DB_HOST=.*/DB_HOST=mariadb/g" .env
+    && sed -i "s/DB_HOST=.*/DB_HOST=mariadb/g" .env \
+    && sed -i "s/APP_ENV=.*/APP_ENV=production/g" .env \
+    && sed -i "s/APP_DEBUG=.*/APP_DEBUG=false/g" .env
 ENTRYPOINT ["./start-container.sh"]
