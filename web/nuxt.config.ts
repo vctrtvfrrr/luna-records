@@ -1,11 +1,10 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  css: ["~/assets/css/main.css"],
   devServer: {
     host: process.env.HOST,
     port: Number(process.env.PORT),
   },
-  modules: ["nuxt-icon", "@formkit/nuxt"],
+  modules: ["@nuxtjs/tailwindcss", "nuxt-icon", "@formkit/nuxt"],
   postcss: {
     plugins: {
       tailwindcss: {},

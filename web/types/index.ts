@@ -35,3 +35,25 @@ export interface INavigation {
   name: string;
   href: string;
 }
+
+export interface IOrder {
+  card: string;
+  expires_at: string;
+  cvv: string;
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+}
+
+export interface IOrderStoreRequest extends IOrder {
+  items: {
+    album_id: string;
+    quantity: number;
+    delivery_fee: number;
+  };
+}
+
+export interface IOrderStoreResponse {
+  data: IOrder;
+}

@@ -18,6 +18,33 @@ const releasedAt = computed(() => {
 });
 
 const duration = computed(() => formatDuration(album.duration || 0));
+
+async function submitOrder(fields: Record<string, string>) {
+  if (typeof album.id === "undefined") return;
+
+  try {
+    await $api.v1.order.store({
+      card: fields.orderCard,
+      expires_at: fields.orderExpiresAt,
+      cvv: fields.orderCvv,
+      name: fields.orderName,
+      email: fields.orderEmail,
+      phone: fields.orderPhone,
+      address: fields.orderAddress,
+      items: {
+        album_id: album.id,
+        quantity: 1,
+        delivery_fee: 0,
+      },
+    });
+
+    await new Promise((r) => setTimeout(r, 1000));
+    navigateTo("/thanks");
+  } catch (error) {
+    // TODO: Tratar os erros da API
+    console.error(error);
+  }
+}
 </script>
 
 <template>
@@ -88,70 +115,95 @@ const duration = computed(() => formatDuration(album.duration || 0));
       </div>
     </div>
 
-    <form class="mt-8">
+    <div class="mt-8">
       <h3 class="font-bold text-2xl">Finalize a compra</h3>
 
       <div class="grid grid-cols-5 gap-8">
         <div class="col-span-3 mt-2">
-          <div class="mt-8 space-y-6">
+          <FormKit
+            type="form"
+            id="orderForm"
+            @submit="submitOrder"
+            submit-label="Finalizar pedido"
+            :submit-attrs="{
+              inputClass:
+                '$reset inline-block mt-4 py-2 px-4 rounded bg-red-700 hover:bg-red-800 text-center text-white font-bold',
+            }"
+          >
             <div class="grid grid-cols-12 gap-2">
-              <label class="block col-span-8">
-                <input
+              <div class="col-span-8">
+                <FormKit
                   type="text"
-                  class="mt-1 block w-full"
-                  placeholder="Nº Cartão de Crédito"
+                  name="orderCard"
+                  id="orderCard"
+                  placeholder="Cartão de crédito"
+                  inner-class="max-w-full"
+                  validation="required|length:1,16"
+                  validation-label="Card"
                 />
-              </label>
-              <label class="block col-span-2">
-                <input
+              </div>
+              <div class="col-span-2">
+                <FormKit
                   type="text"
-                  class="mt-1 block w-full"
+                  name="orderExpiresAt"
+                  id="orderExpiresAt"
                   placeholder="MM / AA"
+                  validation="required|date_format:MM/YY"
+                  validation-label="Expiration"
                 />
-              </label>
-              <label class="block col-span-2">
-                <input
+              </div>
+              <div class="col-span-2">
+                <FormKit
                   type="text"
-                  class="mt-1 block w-full"
+                  name="orderCvv"
+                  id="orderCvv"
                   placeholder="CVV"
+                  validation="required|matches:/[0-9]{3}/"
+                  validation-label="CVV"
                 />
-              </label>
+              </div>
             </div>
 
-            <label class="block">
-              <input
-                type="text"
-                class="mt-1 block w-full"
-                placeholder="Nome completo"
-              />
-            </label>
+            <FormKit
+              type="text"
+              name="orderName"
+              id="orderName"
+              placeholder="Nome completo"
+              inner-class="max-w-full"
+              validation="required|length:1,100"
+              validation-label="Name"
+            />
 
             <div class="grid grid-cols-2 gap-2">
-              <label class="block">
-                <input
-                  type="email"
-                  class="mt-1 block w-full"
-                  placeholder="E-mail"
-                />
-              </label>
+              <FormKit
+                type="email"
+                name="orderEmail"
+                id="orderEmail"
+                placeholder="Endereço de e-mail"
+                validation="required|email|length:1,100"
+                validation-label="Email"
+              />
 
-              <label class="block">
-                <input
-                  type="text"
-                  class="mt-1 block w-full"
-                  placeholder="Telefone"
-                />
-              </label>
+              <FormKit
+                type="text"
+                name="orderPhone"
+                id="orderPhone"
+                placeholder="Celular com DDD"
+                validation="required|length:1,15"
+                validation-label="Phone"
+              />
             </div>
 
-            <label class="block">
-              <input
-                type="text"
-                class="mt-1 block w-full"
-                placeholder="Endereço de cobrança"
-              />
-            </label>
-          </div>
+            <FormKit
+              type="text"
+              name="orderAddress"
+              id="orderAddress"
+              placeholder="Endereço para cobrança"
+              inner-class="max-w-full"
+              validation="required|length:1,150"
+              validation-label="Address"
+            />
+          </FormKit>
         </div>
 
         <div class="col-span-2">
@@ -183,14 +235,8 @@ const duration = computed(() => formatDuration(album.duration || 0));
               {{ price }}
             </div>
           </div>
-
-          <button
-            class="inline-block mt-4 py-2 px-4 rounded bg-red-700 hover:bg-red-800 text-center text-white font-bold"
-          >
-            Finalizar o Pedido
-          </button>
         </div>
       </div>
-    </form>
+    </div>
   </div>
 </template>

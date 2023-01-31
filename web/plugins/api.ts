@@ -1,6 +1,7 @@
 import { $fetch, FetchOptions } from "ohmyfetch";
 import AdminAlbumModule from "~/repository/modules/admin/album";
 import V1AlbumModule from "~/repository/modules/v1/album";
+import V1OrderModule from "~/repository/modules/v1/order";
 
 interface IApiInstance {
   admin: {
@@ -8,6 +9,7 @@ interface IApiInstance {
   };
   v1: {
     album: V1AlbumModule;
+    order: V1OrderModule;
   };
 }
 
@@ -21,8 +23,13 @@ export default defineNuxtPlugin((nuxtApp) => {
   const apiFetcher = $fetch.create(fetchOptions);
 
   const modules: IApiInstance = {
-    admin: { album: new AdminAlbumModule(apiFetcher) },
-    v1: { album: new V1AlbumModule(apiFetcher) },
+    admin: {
+      album: new AdminAlbumModule(apiFetcher),
+    },
+    v1: {
+      album: new V1AlbumModule(apiFetcher),
+      order: new V1OrderModule(apiFetcher),
+    },
   };
 
   return {
