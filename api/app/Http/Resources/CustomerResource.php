@@ -17,12 +17,13 @@ class CustomerResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'      => $this->hash,
-            'name'    => $this->name,
-            'email'   => $this->email,
-            'phone'   => $this->phone,
-            'address' => $this->address,
-            'orders'  => OrderResource::collection($this->whenLoaded('orders')),
+            'id'           => $this->hash,
+            'name'         => $this->name,
+            'email'        => $this->email,
+            'phone'        => $this->phone,
+            'address'      => $this->address,
+            'orders'       => OrderResource::collection($this->whenLoaded('orders')),
+            'orders_count' => $this->whenCounted('orders'),
         ];
     }
 }

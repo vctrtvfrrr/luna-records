@@ -65,6 +65,7 @@ namespace App\Models{
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order[] $orders
  * @property-read int|null $orders_count
  * @method static \Illuminate\Database\Eloquent\Builder|Customer byHash(string $hash)
+ * @method static \Database\Factories\CustomerFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Customer newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Customer newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Customer query()
@@ -97,6 +98,7 @@ namespace App\Models{
  * @property-read \App\Models\Customer $customer
  * @property-read string|null $hash
  * @method static \Illuminate\Database\Eloquent\Builder|Order byHash(string $hash)
+ * @method static \Database\Factories\OrderFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Order newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Order newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Order query()
