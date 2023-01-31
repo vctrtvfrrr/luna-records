@@ -2,10 +2,12 @@
 
 Loja de Discos.
 
+![Screenshot](screenshot.png)
+
 ## Pré-requisitos
 
 - [Docker](https://docs.docker.com/engine/install/ubuntu/) 20.10 ou superior
-- [docker-compose](https://docs.docker.com/compose/install/) 2.15 ou superior
+- [Docker Compose](https://docs.docker.com/compose/install/) 2.15 ou superior
 
 ## Instalação
 
@@ -71,9 +73,11 @@ Neste arquivo também é recomendado manter os valores existentes, alterando ape
 
 ## Executando
 
-O projeto utiliza o `docker-compose` como orquestrador dos containers Docker.
+O projeto utiliza o `docker compose` como orquestrador dos containers Docker.
 
 Para executar o projeto pela primeira vez, precisamos iniciar o banco de dados antes dos demais serviços (o primeiro start é um pouco mais demorado). Para isso vamos execurar:
+
+> Obs: Para executar os containers em modo de produção, especifique o arquivo docker-compose.prod.yml durante os comandos. Ex.: `docker compose -f docker-compose.prod.yml ps`.
 
 ```bash
 docker compose up -d mariadb
@@ -82,7 +86,7 @@ docker compose up -d mariadb
 Em seguida, podemos simplesmente fazer o start de todos os demais serviços:
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 Se todas as variáveis de ambiente tiverem sido configuradas corretamente e não ocorrer nenhum problema durante o processo de montagem das imagens, ao final do processo o projeto estará disponível através da seguinte URL: https://localhost.
