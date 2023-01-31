@@ -30,6 +30,19 @@ export interface IAlbumShowResponse {
   };
 }
 
+export interface ICustomer {
+  address: string;
+  email: string;
+  id: string;
+  name: string;
+  phone: string;
+  orders_count?: number;
+}
+
+export interface ICustomerIndexResponse {
+  data: ICustomer[];
+}
+
 export interface INavigation {
   icon?: string;
   name: string;
@@ -37,6 +50,19 @@ export interface INavigation {
 }
 
 export interface IOrder {
+  id: string;
+  customer?: ICustomer;
+  album?: IAlbum;
+  delivery_fee: number;
+  quantity: number;
+  total_cost: number;
+}
+
+export interface IOrderIndexResponse {
+  data: IOrder[];
+}
+
+export interface IOrderStoreRequest {
   card: string;
   expires_at: string;
   cvv: string;
@@ -44,9 +70,6 @@ export interface IOrder {
   email: string;
   phone: string;
   address: string;
-}
-
-export interface IOrderStoreRequest extends IOrder {
   items: {
     album_id: string;
     quantity: number;

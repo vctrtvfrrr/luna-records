@@ -17,5 +17,17 @@ const navigation: INavigation[] = [
     name: "Home",
     href: "/",
   },
+  {
+    name: "Álbuns",
+    href: "/admin/albums",
+  },
+  {
+    name: "Clientes",
+    href: "/admin/customers",
+  },
+  {
+    name: "Pedidos",
+    href: "/admin/orders",
+  },
 ];
 </script>
