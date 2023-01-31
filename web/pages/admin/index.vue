@@ -1,9 +1,3 @@
 <script lang="ts" setup>
-definePageMeta({
-  layout: "admin",
-});
+navigateTo("/admin/albums");
 </script>
-
-<template>
-  <p class="text-lg">Bem-vindo ao painel administrativo da plataforma.</p>
-</template>

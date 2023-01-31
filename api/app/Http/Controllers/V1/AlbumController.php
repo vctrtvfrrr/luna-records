@@ -22,6 +22,7 @@ class AlbumController extends Controller
             'name',
             'artist',
             'cover',
+            'stock',
             'price',
         ]);
 

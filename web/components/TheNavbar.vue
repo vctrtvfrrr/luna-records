@@ -1,3 +1,18 @@
+<script lang="ts" setup>
+import { type PropType } from "vue";
+import { INavigation } from "types";
+import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
+
+const route = useRoute();
+
+defineProps({
+  navigation: {
+    type: Array as PropType<INavigation[]>,
+    required: true,
+  },
+});
+</script>
+
 <template>
   <Disclosure as="nav" v-slot="{ open }">
     <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -44,11 +59,11 @@
                   route.path === item.href
                     ? 'bg-red-800 text-white'
                     : 'text-red-700 hover:bg-red-700 hover:text-white',
-                  'px-3 rounded py-2 text-sm font-medium',
+                  'flex items-center px-3 rounded py-2 text-sm font-medium',
                 ]"
                 :aria-current="route.path === item.href ? 'page' : undefined"
-                ><span v-if="item.icon" class="inline-block"
-                  ><Icon :name="item.icon" size="1.2rem"
+                ><span v-if="item.icon" class="flex"
+                  ><Icon :name="item.icon" size="18px"
                 /></span>
                 {{ item.name }}</NuxtLink
               >
@@ -69,11 +84,11 @@
             route.path === item.href
               ? 'bg-red-800 text-white'
               : 'text-red-700 hover:bg-red-700 hover:text-white',
-            'block px-3 py-2 rounded-md text-base font-medium',
+            'flex items-center px-3 py-2 rounded-md text-base font-medium',
           ]"
           :aria-current="route.path === item.href ? 'page' : undefined"
-          ><span v-if="item.icon" class="inline-block"
-            ><Icon :name="item.icon" size="1.2rem"
+          ><span v-if="item.icon" class="flex"
+            ><Icon :name="item.icon" size="18px"
           /></span>
           {{ item.name }}</DisclosureButton
         >
@@ -81,18 +96,3 @@
     </DisclosurePanel>
   </Disclosure>
 </template>
-
-<script lang="ts" setup>
-import { type PropType } from "vue";
-import { INavigation } from "types";
-import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/vue";
-
-const route = useRoute();
-
-const props = defineProps({
-  navigation: {
-    type: Array as PropType<INavigation[]>,
-    required: true,
-  },
-});
-</script>

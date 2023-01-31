@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import dayjs from "dayjs";
 import "dayjs/locale/pt-br";
+import { FetchError } from "ohmyfetch";
 dayjs.locale("pt-br");
 
 const { $api } = useNuxtApp();
@@ -41,8 +42,10 @@ async function submitOrder(fields: Record<string, string>) {
     await new Promise((r) => setTimeout(r, 1000));
     navigateTo("/thanks");
   } catch (error) {
-    // TODO: Tratar os erros da API
-    console.error(error);
+    if (error instanceof FetchError && error.response?.status === 422) {
+      alert("O álbum que você está tentando comprar está fora de estoque");
+      navigateTo("/");
+    }
   }
 }
 </script>
@@ -115,7 +118,7 @@ async function submitOrder(fields: Record<string, string>) {
       </div>
     </div>
 
-    <div class="mt-8">
+    <div v-if="album.stock" class="mt-8">
       <h3 class="font-bold text-2xl">Finalize a compra</h3>
 
       <div class="grid grid-cols-5 gap-8">

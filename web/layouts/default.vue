@@ -3,8 +3,14 @@ import { INavigation } from "types";
 
 const navigation: INavigation[] = [
   {
-    name: "Lançamentos",
-    href: "#",
+    icon: "ic:baseline-home",
+    name: "Home",
+    href: "/",
+  },
+  {
+    icon: "ic:baseline-admin-panel-settings",
+    name: "Admin",
+    href: "/admin",
   },
 ];
 </script>
